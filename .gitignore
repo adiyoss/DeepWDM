@@ -3,7 +3,7 @@
 .DS_Store
 back_end/data/
 back_end/results/model.net
-front_end/data/fiels/
+front_end/data/files/
 front_end/data/measurement/
 
 # Byte-compiled / optimized / DLL files
