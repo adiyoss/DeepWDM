@@ -18,9 +18,9 @@ item []:
 				text = ""
 			intervals [2]:
 				xmin = 1.620000
-				xmax = 2.190000
+				xmax = 2.200000
 				text = "word"
 			intervals [3]:
-				xmin = 2.190000
+				xmin = 2.200000
 				xmax = 3.522018
 				text = ""
