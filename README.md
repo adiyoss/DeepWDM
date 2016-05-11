@@ -4,6 +4,7 @@
 The repository contains code for word duration measurement.
  - `back_end folder`: contains the training algorithms, it can be used for training the model on new datasets or using different features.
  - `front_end folder`: contains the features extraction algorithm.
+ - `lib folder`: contains some useful python scripts.
  - `data folder`: contains the example file to test the repository.
 
 ## Installation
