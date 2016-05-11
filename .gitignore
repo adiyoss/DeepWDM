@@ -2,7 +2,7 @@
 .idea/
 .DS_Store
 back_end/data/
-back_end/results/model.net
+*.net
 front_end/data/files/
 front_end/data/measurement/
 

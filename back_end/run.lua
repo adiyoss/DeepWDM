@@ -10,11 +10,13 @@ cmd:text()
 cmd:text('Options:')
 -- global:
 cmd:option('-seed', 1, 'fixed input seed for repeatable experiments')
-cmd:option('-threads', 2, 'number of threads')
+cmd:option('-threads', 4, 'number of threads')
 cmd:option('-patience', 5, 'the number of epochs to be patient before early stopping')
 cmd:option('-epsilon', 0.01, 'the minimum amount of loss improvment require for keep training the model')
 -- data:
-cmd:option('folder_path', '/Users/yossiadi/Projects/wdm_lstm/torch/front_end/data/measurement/', 'the path to the data files')
+cmd:option('-folder_path', 'data/', 'the path to the data files')
+cmd:option('-x_filename', 'x.t7', 'the features filename')
+cmd:option('-y_filename', 'y.t7', 'the labels filename')
 cmd:option('-input_dim', 39, 'the input size')
 cmd:option('-output_dim', 2, 'the output size')
 cmd:option('-val_percentage', 0.2, 'the percentage of exampels to be considered as validation set from the training set')
@@ -35,6 +37,13 @@ cmd:option('-type', 'double', 'type: double | float | cuda')
 cmd:option('-rho', 100, 'max sequence length')
 cmd:text()
 opt = cmd:parse(arg or {})
+
+paramsLogger = io.open(paths.concat(opt.save, 'params.log'), 'w')
+-- save cmd parameters
+for key, value in pairs(opt) do
+  paramsLogger:write(key .. ': ' .. tostring(value) .. '\n')
+end
+paramsLogger:close()
 
 -- nb of threads and fixed seed (for repeatable experiments)
 if opt.type == 'float' then
@@ -90,7 +99,7 @@ while loss + opt.epsilon < best_loss or iteration < opt.patience do
     local filename = paths.concat(opt.save, 'model.net')
     os.execute('mkdir -p ' .. sys.dirname(filename))
     print('==> saving model to '..filename)    
-    torch.save(filename, rnn)
+    torch.save(filename, model)
     iteration = 1
   end
 end

@@ -79,9 +79,9 @@ elseif opt.model == 'rnn' then
   model = nn.Sequential()     
      :add(s_rnn_1)
      :add(nn.Sequencer(nn.Dropout(opt.dropout)))
---     :add(s_rnn_2)
---     :add(nn.Sequencer(nn.Dropout(opt.dropout)))
-     :add(nn.Sequencer(nn.Linear(nhiddens_1, opt.output_dim)))
+     :add(s_rnn_2)
+     :add(nn.Sequencer(nn.Dropout(opt.dropout)))
+     :add(nn.Sequencer(nn.Linear(nhiddens_2, opt.output_dim)))
      :add(nn.Sequencer(nn.LogSoftMax()))
 else
   error('unknown -model')

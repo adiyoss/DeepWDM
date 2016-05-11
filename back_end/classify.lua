@@ -52,6 +52,7 @@ softmax = nn.SoftMax()
 
 print '==> loading model'
 model = torch.load(opt.model_path)
+model:evaluate()
 
 x ={}
 table.insert(x, data_x)

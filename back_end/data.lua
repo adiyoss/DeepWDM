@@ -13,7 +13,9 @@ if not opt then
    cmd:text('Loading data')
    cmd:text()
    cmd:text('Options:')
-   cmd:option('folder_path', '/Users/yossiadi/Projects/wdm_lstm/torch/front_end/data/measurement/', 'the path to the data files')
+   cmd:option('-folder_path', 'data/', 'the path to the data files')
+   cmd:option('-x_filename', 'x.t7', 'the features filename')
+   cmd:option('-y_filename', 'y.t7', 'the labels filename')
    cmd:option('-input_dim', 39, 'the input size')
    cmd:option('-output_dim', 2, 'the output size')
    cmd:option('-val_percentage', 0.2, 'the percentage of exampels to be considered as validation set from the training set')
@@ -26,23 +28,19 @@ mini_batch_idx = 0 --for the minibatchs
 local output_dim = opt.output_dim
 
 print("==> Loading data set")
+local data_x = {}
+local data_y = {}
 
-data_dir = opt.folder_path
-
---[[
-local x_filename = 'x_train_naming.txt'
-local y_filename = 'y_train_naming.txt'
-local data_x = load_data(paths.concat(data_dir, x_filename), opt.input_dim)
-local tmp_y = load_data(paths.concat(data_dir, y_filename), output_dim)
-local data_y = tmp_y[{{}, 1}]
-
-
-torch.save('x.t7', data_x)
-torch.save('y.t7', data_y) 
-]]--
-
-local data_x = torch.load('data/x.t7')
-local data_y = torch.load('data/y.t7')
+if string.sub(opt.x_filename,-string.len('.t7'))=='.t7' then
+  data_x = torch.load(paths.concat(opt.folder_path, opt.x_filename))
+  data_y = torch.load(paths.concat(opt.folder_path, opt.y_filename))
+else
+  data_x = load_data(paths.concat(opt.folder_path, opt.x_filename), opt.input_dim)
+  local tmp_y = load_data(paths.concat(opt.folder_path, opt.y_filename), output_dim)
+  data_y = tmp_y[{{}, 1}]
+  --torch.save('x.t7', data_x)
+  --torch.save('y.t7', data_y)
+end
 
 -- Detecting and removing NaNs
 if data_x:ne(data_x):sum() > 0 then
@@ -88,4 +86,3 @@ valData = {
 print '==> data statistics:'
 print('==> training set size: ' .. trainData:size() .. ', label 1: ' .. (1 - p_train) .. ', label 2:' .. p_train)
 print('==> validation set size: ' .. valData:size() .. ', label 1: ' .. (1 - p_val) .. ', label 2:' .. p_val)
-
