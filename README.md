@@ -48,15 +48,15 @@ python predict.py data/test.wav data/test.TextGrid
 
 ## Training Your Own Model
 In order to train DeepWDM model using your own data you need to preform two steps:
-	1. Extract features 
- 	2. Train the model
+- A. Extract features 
+- B. Train the model
 
 ### Extract features 
 Extracting features for training new model can be done by using the run_front_end.py script from the fron/_end folder.
 This script get as input three parameter:
-	1. The path where to the folder which contains the .wav files.
-	2. the path to the manual annotation files. Those files should be in a TextGrid format, the same as in the example folder.
-	3. The path where to save the features and labels.
+- A. The path where to the folder which contains the .wav files.
+- B. the path to the manual annotation files. Those files should be in a TextGrid format, the same as in the example folder.
+- C. The path where to save the features and labels.
 
 To test the feature extraction procedure, type the following command from the front\_end folder: 
 ```bash
@@ -69,10 +69,10 @@ In oder to train the model you should run the run.lua script from the back/_end 
 The parameter for the new files are: `-folder_path`, `-x_filename` and `y_filename`.
 
 ### Useful Tricks
-	- In order to load the data faster, it is recommended to convert the features and labels files to .t7 format. You can do it by simply using the convert2t7.lua script, it gets as input the path to the features and label files along with the desired output paths, and saves them as .t7 file. 
-	- Another option is to run the data.lua script and uncomment lines 38-39 with the torch.save() command.
-	- You can try out the impact of the other parameters such as: learning rate, different optimization technique, etc.
-	- If your dataset is unbalanced, i.e there are much more silence then activities in the speech signal, you can try to different weights on the loss functions. This can be done by changing the values of the `weights` parameter in loss.lua file.
+- In order to load the data faster, it is recommended to convert the features and labels files to .t7 format. You can do it by simply using the convert2t7.lua script, it gets as input the path to the features and label files along with the desired output paths, and saves them as .t7 file. 
+- Another option is to run the data.lua script and uncomment lines 38-39 with the torch.save() command.
+- You can try out the impact of the other parameters such as: learning rate, different optimization technique, etc.
+- If your dataset is unbalanced, i.e there are much more silence then activities in the speech signal, you can try to different weights on the loss functions. This can be done by changing the values of the `weights` parameter in loss.lua file.
 
 
 
