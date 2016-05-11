@@ -2,7 +2,6 @@ import argparse
 import shutil
 import sys
 import os
-import cPickle
 import numpy as np
 
 from lib import utility as utils
@@ -187,16 +186,6 @@ def merge_files(path, final_file_features, final_file_labels=NO_STRING):
 
             print("\rProcessing item number: %d" % item_num),
             item_num += 1
-
-
-def convert_2_pickle(in_path_x, in_path_y, out_path):
-    x = np.loadtxt(in_path_x)
-    y = np.loadtxt(in_path_y)
-
-    f = file(out_path, 'wb')
-    for obj in [x, y]:
-        cPickle.dump(obj, f, protocol=cPickle.HIGHEST_PROTOCOL)
-    f.close()
 
 
 # the main function
