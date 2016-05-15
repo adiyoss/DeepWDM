@@ -8,15 +8,31 @@ from lib import utils
 from post_process import post_process
 
 
-def predict(input_path, output_path):
+def predict(input_path, output_path, model):
     tmp_dir = 'tmp/'
     tmp_features = 'tmp.features'
     tmp_prob = 'tmp.prob'
     tmp_prediction = 'tmp.prediction'
     tmp_duration = 'tmp.dur'
+    model_path = ''
+
     if not os.path.exists(input_path):
         print >> sys.stderr, "wav file does not exits"
         return
+
+    t_model = model.upper()    
+    if t_model == 'RNN':
+        model_path = 'results/rnn/model.net'
+        print '==> using single layer RNN'
+    elif t_model == '2RNN':
+        model_path = 'results/2stack_rnn/model.net'
+        print '==> using 2 stacked layers RNN'
+    elif t_model == 'BIRNN':
+        model_path = 'results/bi_rnn/model.net'
+        print '==> using bi-directional RNN'
+    else:
+        model_path = 'results/rnn/model.net'
+        print '==> unknown model, using default model: single RNN'
 
     length = utils.get_wav_file_length(input_path)
     prob_file = tmp_dir + tmp_prob
@@ -36,8 +52,8 @@ def predict(input_path, output_path):
     os.chdir("..")
 
     print '\n2) Model predictions ...'
-    cmd = 'th classify.lua -folder_path %s -x_filename %s -class_path %s -prob_path %s' % (
-    os.path.abspath(tmp_dir), tmp_features, os.path.abspath(predict_file), os.path.abspath(prob_file))
+    cmd = 'th classify.lua -folder_path %s -x_filename %s -class_path %s -prob_path %s -model_path %s' % (
+    os.path.abspath(tmp_dir), tmp_features, os.path.abspath(predict_file), os.path.abspath(prob_file), model_path)
     os.chdir("back_end/")
     utils.easy_call(cmd)
     os.chdir("..")
@@ -57,9 +73,10 @@ if __name__ == "__main__":
     # -------------MENU-------------- #
     # command line arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("input_path", help="The path to the wav file")
+    parser.add_argument("input_path", help="The path to the wav file")    
     parser.add_argument("output_path", help="The path to save new text-grid file")
+    parser.add_argument("model", help="The type pf model: rnn | 2rnn | birnn")
     args = parser.parse_args()
 
     # main function
-    predict(args.input_path, args.output_path)
+    predict(args.input_path, args.output_path, args.model)
