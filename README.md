@@ -36,14 +36,14 @@ First, download the desired model: [RNN](http://u.cs.biu.ac.il/~jkeshet/word_dur
 ## Usage
 For measurement just type: 
 ```bash
-python predict.py "input wav file" "output text grid file"
+python predict.py "input wav file" "output text grid file model_type"
 ```
 
 ## Example
 You can try our tool using the example file in the data folder. 
 Type:
 ```bash
-python predict.py data/test.wav data/test.TextGrid
+python predict.py data/test.wav data/test.TextGrid rnn
 ```
 
 ## Training Your Own Model
