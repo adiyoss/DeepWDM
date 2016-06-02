@@ -36,7 +36,7 @@ First, download the desired model: [RNN](http://u.cs.biu.ac.il/~jkeshet/word_dur
 ## Usage
 For measurement just type: 
 ```bash
-python predict.py "input wav file" "output text grid file model_type"
+python predict.py "input wav file" "output text grid file" "model type"
 ```
 
 ## Example
