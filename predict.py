@@ -22,16 +22,16 @@ def predict(input_path, output_path, model):
 
     t_model = model.upper()    
     if t_model == 'RNN':
-        model_path = 'results/rnn/model.net'
+        model_path = 'results/1_layer_model.net'
         print '==> using single layer RNN'
     elif t_model == '2RNN':
-        model_path = 'results/2stack_rnn/model.net'
+        model_path = 'results/2_layer_model.net'
         print '==> using 2 stacked layers RNN'
     elif t_model == 'BIRNN':
-        model_path = 'results/bi_rnn/model.net'
+        model_path = 'results/bi_model.net'
         print '==> using bi-directional RNN'
     else:
-        model_path = 'results/rnn/model.net'
+        model_path = 'results/1_layer_model.net'
         print '==> unknown model, using default model: single RNN'
 
     length = utils.get_wav_file_length(input_path)

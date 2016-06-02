@@ -27,11 +27,11 @@ source ~/.profile
 # For rnn package installation
 luarocks install rnn
 ```
- - [Python (2.7) + Numpy] (https://penandpants.com/2012/02/24/install-python/)
- - For the visualization tools: [Matplotlib] (https://penandpants.com/2012/02/24/install-python/)
+ - [Python (2.7) + Numpy](https://penandpants.com/2012/02/24/install-python/)
+ - For the visualization tools: [Matplotlib](https://penandpants.com/2012/02/24/install-python/)
  
 ### Model Installation
-Download the model from: [DeepWDM Model] (??). Than, move the model file to: `back_end/results/` inside the project directory.
+First, download the desired model: [RNN](http://u.cs.biu.ac.il/~jkeshet/word_duration_models/1_layer_model.net), [2 Stacked Layers RNN](http://u.cs.biu.ac.il/~jkeshet/word_duration_models/2_layer_model.net), [Bi-Directional RNN](http://u.cs.biu.ac.il/~jkeshet/word_duration_models/bi_model.net). Than, move the model file to: `back_end/results/` inside the project directory.
 
 ## Usage
 For measurement just type: 
