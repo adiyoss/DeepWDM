@@ -1,4 +1,4 @@
-# DeepWDM - Recurrent neural networks for Word Duration Measurement written in [Torch7](http://torch.ch)
+# DeepWDM - Recurrent Neural Networks for Word Duration Measurement written in [Torch7](http://torch.ch)
 
 ## Content
 The repository contains code for word duration measurement.

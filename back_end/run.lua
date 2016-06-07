@@ -103,7 +103,7 @@ for t = 1, valData:size(), opt.rho do
 end
 -------------------------------------
 
-loss = validate()
+--loss = validate()
 print('==> validation loss: ' .. loss)
 
 -- training

@@ -3,6 +3,7 @@
 .DS_Store
 back_end/data/
 back_end/results/old_models/
+back_end/results/rnn_old_version/
 
 *.net
 front_end/data/files/
