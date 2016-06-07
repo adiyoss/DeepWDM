@@ -91,14 +91,15 @@ function train()
 
    -- set model to training mode (for modules that differ in training and testing, like Dropout)
    model:training()
-   
+  
    -- do one epoch
    print('==> doing epoch on training data:')
    print("==> online epoch # " .. epoch .. ' [batchSize = ' .. opt.batchSize .. ']')
-   for t = 1,trainData:size(),opt.batchSize do
+   for t = 1,#rnnTrainData do
       -- disp progress
-      xlua.progress(t, trainData:size())
+      xlua.progress(t, #rnnTrainData)
 
+      --[[
       -- create mini batch
       local inputs = {}
       local targets = {}
@@ -113,7 +114,9 @@ function train()
          table.insert(inputs, input)
          table.insert(targets, target)
       end
-
+      ]]--
+      local inputs = rnnTrainData[t]
+      local targets = rnnTrainLabels[t]
       -- create closure to evaluate f(X) and df/dX
       local feval = function(x)
                        -- get new parameters
@@ -137,10 +140,8 @@ function train()
                        model:backward(inputs, df_do)
                       
                        for i=1,#targets do
-                         for j=1,opt.rho do
-                           -- update confusion
-                           confusion:add(output[i][j], targets[i][j])
-                         end
+                          -- update confusion
+                          confusion:add(output[i], targets[i])
                        end  
                        
                        -- normalize gradients and f(X)

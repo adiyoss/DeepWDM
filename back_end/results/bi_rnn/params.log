@@ -19,4 +19,4 @@ optimization: ADAGRAD
 epsilon: 0.01
 weightDecay: 0
 learningRate: 0.01
-batchSize: 64
+batchSize: 1

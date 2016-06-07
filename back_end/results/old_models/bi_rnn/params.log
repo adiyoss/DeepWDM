@@ -12,11 +12,11 @@ output_dim: 2
 x_filename: x.t7
 type: double
 momentum: 0
-model: rnn
+model: birnn
 patience: 5
 threads: 4
 optimization: ADAGRAD
 epsilon: 0.01
 weightDecay: 0
 learningRate: 0.01
-batchSize: 1
+batchSize: 64

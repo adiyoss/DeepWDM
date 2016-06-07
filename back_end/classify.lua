@@ -16,14 +16,14 @@ cmd:text('Options:')
 cmd:option('-seed', 1, 'fixed input seed for repeatable experiments')
 cmd:option('-threads', 2, 'number of threads')
 -- data:
-cmd:option('-folder_path', '/Users/yossiadi/Projects/wdm_lstm/torch/front_end/data/test_features/', 'the path to the data files')
-cmd:option('-x_filename', 'x_test_naming.txt', 'the path to the featues')
+cmd:option('-folder_path', '/Users/yossiadi/Projects/wdm_lstm/torch/tmp/', 'the path to the data files')
+cmd:option('-x_filename', 'tmp.features', 'the path to the featues')
 cmd:option('-input_dim', 39, 'the input size')
 cmd:option('-class_path', 'measurement/cls.txt', 'the path for the output file, hard classification')
 cmd:option('-prob_path', 'measurement/prb.txt', 'the path for the output file, probability')
 
 -- model:
-cmd:option('-model_path', 'results/model.net', 'the path to the model')
+cmd:option('-model_path', 'results/1_layer_model.net', 'the path to the model')
 cmd:option('-type', 'double', 'type: double | float | cuda')
 cmd:text()
 opt = cmd:parse(arg or {})
@@ -48,16 +48,19 @@ print '==> loading data'
 data_x = load_data(paths.concat(opt.folder_path, opt.x_filename), opt.input_dim)
 outputs = torch.zeros(data_x:size(1))
 prbs = torch.zeros(data_x:size(1))
-softmax = nn.SoftMax()
+softmax = nn.Sequencer(nn.SoftMax())
 
 print '==> loading model'
 model = torch.load(opt.model_path)
 model:evaluate()
 
-x ={}
-table.insert(x, data_x)
+x = {}
+for i=1, data_x:size(1) do
+  table.insert(x, data_x[i])
+end
+
 local output = model:forward(x)
-output = softmax:forward(output[1])
+output = softmax:forward(output)
 
 for t=1,data_x:size(1) do
   outputs[t] = argmax(output[t])

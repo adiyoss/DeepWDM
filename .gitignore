@@ -5,6 +5,8 @@ back_end/data/
 *.net
 front_end/data/files/
 front_end/data/measurement/
+data/from_emily/
+data/more_files/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

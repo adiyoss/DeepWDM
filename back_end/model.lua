@@ -70,6 +70,17 @@ elseif opt.model == 'birnn' then
      :add(nn.Sequencer(nn.LogSoftMax()))
 
 elseif opt.model == 'rnn' then
+  --- ONE LAYER RNN ---
+  fwd_1 = nn.GRU(opt.input_dim, nhiddens_1)
+  s_rnn_1 = nn.Sequencer(fwd_1)
+
+  model = nn.Sequential()     
+     :add(s_rnn_1)
+     :add(nn.Sequencer(nn.Dropout(opt.dropout)))
+     :add(nn.Sequencer(nn.Linear(nhiddens_1, opt.output_dim)))
+     :add(nn.Sequencer(nn.LogSoftMax()))
+
+elseif opt.model == '2rnn' then
   --- TWO LAYERS RNN ---
   fwd_1 = nn.GRU(opt.input_dim, nhiddens_1)
   fwd_2 = nn.GRU(nhiddens_1, nhiddens_2)

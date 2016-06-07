@@ -21,7 +21,7 @@ cmd:option('-input_dim', 39, 'the input size')
 cmd:option('-output_dim', 2, 'the output size')
 cmd:option('-val_percentage', 0.2, 'the percentage of exampels to be considered as validation set from the training set')
 -- model:
-cmd:option('-model', 'birnn', 'type of model to construct: mlp | convnet | rnn | birnn')
+cmd:option('-model', 'birnn', 'type of model to construct: mlp | convnet | rnn | 2rnn | birnn')
 cmd:option('-drop_out', 0.5, 'dropout rate')
 -- loss:
 cmd:option('-loss', 'nll', 'type of loss function to minimize: nll')
@@ -30,7 +30,7 @@ cmd:option('-save', 'results', 'subdirectory to save/log experiments in')
 cmd:option('-plot', false, 'live plot')
 cmd:option('-optimization', 'ADAGRAD', 'optimization method: SGD | ADAM | ADAGRAD')
 cmd:option('-learningRate', 0.01, 'learning rate at t=0')
-cmd:option('-batchSize', 64, 'mini-batch size (1 = pure stochastic)')
+cmd:option('-batchSize', 1, 'mini-batch size (1 = pure stochastic)')
 cmd:option('-weightDecay', 0, 'weight decay (SGD only)')
 cmd:option('-momentum', 0, 'momentum (SGD only)')
 cmd:option('-type', 'double', 'type: double | float | cuda')
@@ -71,6 +71,37 @@ print '==> training!'
 local iteration = 1
 local best_loss = 100000
 local loss = 0
+
+-- rho time steps
+rnnTrainData = {}
+rnnTrainLabels = {}
+rnnValData = {}
+rnnValLabels = {}
+
+-------------------------------------
+-- split to rho timesteps every time
+local count = 1
+for t = 1, trainData:size(), opt.rho do
+  rnnTrainData[count] = {}     
+  rnnTrainLabels[count] = {}     
+  for i=1, math.min(opt.rho, trainData:size()-t) do
+    table.insert(rnnTrainData[count], trainData.data[t + i])
+    table.insert(rnnTrainLabels[count], trainData.labels[t + i])
+  end
+  count = count + 1
+end
+
+count = 1
+for t = 1, valData:size(), opt.rho do
+  rnnValData[count] = {}     
+  rnnValLabels[count] = {}     
+  for i=1, math.min(opt.rho, valData:size()-t) do
+    table.insert(rnnValData[count], valData.data[t + i])
+    table.insert(rnnValLabels[count], valData.labels[t + i])
+  end
+  count = count + 1
+end
+-------------------------------------
 
 loss = validate()
 print('==> validation loss: ' .. loss)

@@ -22,19 +22,24 @@ function validate()
    model:evaluate()
    -- test over test data
    print('==> compute loss on validation set:')
-   for t = 1,valData:size() do
+   for t = 1, #rnnValData do
       -- disp progress
-      xlua.progress(t, valData:size())      
-      
-      local inputs, targets = {}, {}      
+      xlua.progress(t, #rnnValData)
+      --[[
+      local inputs, targets = {}, {} 
       table.insert(inputs, valData.data[t])
       table.insert(targets, valData.labels[t])
-      
+      ]]--
+      local inputs = rnnValData[t]
+      local targets = rnnValLabels[t]
       -- test sample
       local pred = model:forward(inputs)
       err = err + criterion:forward(pred, targets)
       
-      confusion:add(pred[1], targets[1])    
+      for i=1,#targets do
+        -- update confusion
+        confusion:add(pred[i], targets[i])
+      end
    end
 
    -- timing
@@ -60,5 +65,5 @@ function validate()
    
    -- next iteration:
    confusion:zero()
-   return err / valData:size()
+   return err / #rnnValData
 end

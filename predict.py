@@ -14,7 +14,6 @@ def predict(input_path, output_path, model):
     tmp_prob = 'tmp.prob'
     tmp_prediction = 'tmp.prediction'
     tmp_duration = 'tmp.dur'
-    model_path = ''
 
     if not os.path.exists(input_path):
         print >> sys.stderr, "wav file does not exits"
@@ -45,8 +44,8 @@ def predict(input_path, output_path, model):
     os.mkdir(tmp_dir)
 
     print '\n1) Extracting features and classifying ...'
-    cmd = 'python run_front_end.py %s %s ' % (
-    os.path.abspath(os.path.dirname(input_path)) + '/', os.path.abspath(tmp_dir) + '/')
+    cmd = 'python predict_single_file.py %s %s ' % (
+    os.path.abspath(os.path.abspath(input_path)), os.path.abspath(tmp_dir) + '/' + tmp_features)
     os.chdir("front_end/")
     utils.easy_call(cmd)
     os.chdir("..")
