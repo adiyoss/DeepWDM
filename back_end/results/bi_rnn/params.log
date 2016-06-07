@@ -12,7 +12,7 @@ output_dim: 2
 x_filename: x.t7
 type: double
 momentum: 0
-model: 2rnn
+model: birnn
 patience: 5
 threads: 4
 optimization: ADAGRAD
