@@ -25,10 +25,22 @@ def extract_single_mfcc(in_path, out_path):
     :param in_path: the path to the audio file
     :param out_path: the path to save the mfcc features
     """
+    import platform
+    plat = platform.system().lower()
+    if plat is 'darwin':
+        sox_path = 'sbin/osx/sox'
+        htk_path = 'sbin/osx'
+    elif 'linux' in plat:
+        sox_path = 'sox'
+        htk_path = 'sbin/linux'
+    else:
+        sox_path = 'sbin/osx/sox'
+        htk_path = 'sbin/osx'
+
     tmp_file = "tmp.wav"
-    cmd = "sbin/sox %s -r 16000 -b 16 %s" % (in_path, tmp_file)
+    cmd = "%s %s -r 16000 -b 16 %s" % (sox_path, in_path, tmp_file)
     utils.easy_call(cmd)
-    cmd = "sbin/HCopy -C config/htk.config %s %s" % (tmp_file, out_path)
+    cmd = "%s/HCopy -C config/htk.config %s %s" % (htk_path, tmp_file, out_path)
     utils.easy_call(cmd)
     os.remove(tmp_file)
 
