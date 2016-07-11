@@ -36,9 +36,9 @@ Ubuntu users should also install SoX:
 ```bash
 apt-get install sox
 ```
- 
+
 ### Model Installation
-First, download the desired model: [RNN](http://u.cs.biu.ac.il/~jkeshet/word_duration_models/1_layer_model.net), [2 Stacked Layers RNN](http://u.cs.biu.ac.il/~jkeshet/word_duration_models/2_layer_model.net), [Bi-Directional RNN](http://u.cs.biu.ac.il/~jkeshet/word_duration_models/bi_model.net). Than, move the model file to: `back_end/results/` inside the project directory.
+First, download the desired model: [RNN](https://drive.google.com/uc?export=download&id=0B69m3kcUfbmPRDF0X2tuUHFESFk), [2 Stacked Layers RNN](https://drive.google.com/uc?export=download&id=0B69m3kcUfbmPUmJIblAxZ0x0eFE), [Bi-Directional RNN](https://drive.google.com/uc?export=download&id=0B69m3kcUfbmPSk9fZUlTT1M1LVE). Than, move the model file to: `back_end/results/` inside the project directory.
 
 ## Usage
 For measurement just type: 
