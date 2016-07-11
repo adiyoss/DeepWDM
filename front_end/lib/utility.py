@@ -1,4 +1,4 @@
-from aetypes import Enum
+#from aetypes import Enum
 import os
 from subprocess import call
 import sys
@@ -42,18 +42,18 @@ def normalize_to_prob(y):
     return y_norm
 
 
-class LearningTypes(Enum):
-    TRAIN, PREDICT = range(2)
-
-    @classmethod
-    def tostring(cls, val):
-        for k, v in vars(cls).iteritems():
-            if v == val:
-                return k
-
-    @classmethod
-    def fromstring(cls, str):
-        return getattr(cls, str.upper(), None)
+#class LearningTypes(Enum):
+#    TRAIN, PREDICT = range(2)
+#
+#    @classmethod
+#    def tostring(cls, val):
+#        for k, v in vars(cls).iteritems():
+#            if v == val:
+#                return k
+#
+#    @classmethod
+#    def fromstring(cls, str):
+#        return getattr(cls, str.upper(), None)
 
 
 def concatenate_x_frames(x, y, num_of_frames, is_y=True):
