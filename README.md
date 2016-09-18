@@ -38,7 +38,7 @@ apt-get install sox
 ```
 
 ### Model Installation
-First, download the desired model: [RNN](https://drive.google.com/uc?export=download&id=0B69m3kcUfbmPRDF0X2tuUHFESFk), [2 Stacked Layers RNN](https://drive.google.com/uc?export=download&id=0B69m3kcUfbmPUmJIblAxZ0x0eFE), [Bi-Directional RNN](https://drive.google.com/uc?export=download&id=0B69m3kcUfbmPSk9fZUlTT1M1LVE). Than, move the model file to: `back_end/results/` inside the project directory.
+First, download the desired model: [RNN](https://drive.google.com/uc?export=download&id=0B69m3kcUfbmPRDF0X2tuUHFESFk), [2 Stacked Layers of RNN](https://drive.google.com/uc?export=download&id=0B69m3kcUfbmPUmJIblAxZ0x0eFE), [Bi-Directional RNN](https://drive.google.com/uc?export=download&id=0B69m3kcUfbmPSk9fZUlTT1M1LVE), [2 Stacked Layers of Bi-Directionl RNN](). Than, move the model file to: `back_end/results/` inside the project directory.
 
 ## Usage
 For measurement just type: 
@@ -59,7 +59,7 @@ In order to train DeepWDM model using your own data you need to preform two step
 - B. Train the model
 
 ### Extract features 
-Extracting features for training new model can be done by using the run_front_end.py script from the fron/_end folder.
+Extracting features for training new model can be done by using the run_front_end.py script from the front/_end folder.
 This script get as input three parameter:
 - A. The path where to the folder which contains the .wav files.
 - B. the path to the manual annotation files. Those files should be in a TextGrid format, the same as in the example folder.
@@ -72,8 +72,8 @@ python run_front_end.py data/test_file/ --in_path_y data/test_file/ data/test_fe
 This script will generate two files(tmp.features and tmp.label), one for the features and one for the labels. These files will be used to train ht model.
 
 ### Train the model
-In oder to train the model you should run the run.lua script from the back/_end folder with the right path to the labels and features from the previous step.
-The parameter for the new files are: `-folder_path`, `-x_filename` and `y_filename`.
+In order to train the model you should run the run.lua script from the back/_end folder with the right path to the labels and features from the previous step.
+The parameter for the new files are: `-folder_path`, `-x_filename` and `-y_filename`.
 
 ### Useful Tricks
 - In order to load the data faster, it is recommended to convert the features and labels files to .t7 format. You can do it by simply using the convert2t7.lua script, it gets as input the path to the features and label files along with the desired output paths, and saves them as .t7 file. 
