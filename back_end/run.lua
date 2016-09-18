@@ -21,7 +21,7 @@ cmd:option('-input_dim', 39, 'the input size')
 cmd:option('-output_dim', 2, 'the output size')
 cmd:option('-val_percentage', 0.1, 'the percentage of exampels to be considered as validation set from the training set')
 -- model:
-cmd:option('-model', 'birnn', 'type of model to construct: mlp | convnet | rnn | 2rnn | birnn')
+cmd:option('-model', 'birnn', 'type of model to construct: mlp | birnn | 2birnn | rnn | 2rnn')
 cmd:option('-drop_out', 0.5, 'dropout rate')
 -- loss:
 cmd:option('-loss', 'nll', 'type of loss function to minimize: nll')

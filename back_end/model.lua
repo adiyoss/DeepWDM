@@ -12,7 +12,7 @@ if not opt then
    cmd:text('Building the model')
    cmd:text()
    cmd:text('Options:')
-   cmd:option('-model', 'rnn', 'type of model to construct: mlp | convnet | rnn')
+   cmd:option('-model', 'rnn', 'type of model to construct: mlp | birnn | 2birnn | rnn | 2rnn')
    cmd:option('-input_dim', 39, 'the input size')
    cmd:option('-drop_out', 0.5, 'dropout rate')
    cmd:option('-output_dim', 2, 'the output size')
@@ -47,8 +47,24 @@ if opt.model == 'mlp' then
   
 elseif opt.model == 'convnet' then  
   error('not supported yet')
-  
+
 elseif opt.model == 'birnn' then    
+  -- forward rnn  
+  fwd = nn.FastLSTM(opt.input_dim, nhiddens_1)
+  bwd = fwd:clone()
+  bwd:reset() -- reinitializes parameters
+  -- merges the output of one time-step of fwd and bwd rnns.
+  merge = nn.JoinTable(1, 1)
+  -- build the bidirectional lstm
+  brnn = nn.BiSequencer(fwd, bwd, merge)
+  
+  model = nn.Sequential()
+     :add(brnn) 
+     :add(nn.Sequencer(nn.Dropout(opt.dropout)))     
+     :add(nn.Sequencer(nn.Linear(2*nhiddens_1, opt.output_dim))) -- times two due to JoinTable
+     :add(nn.Sequencer(nn.LogSoftMax()))
+
+elseif opt.model == '2birnn' then    
   -- forward rnn  
   fwd_1 = nn.FastLSTM(opt.input_dim, nhiddens_1)
   bwd_1 = fwd_1:clone()
