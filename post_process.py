@@ -39,6 +39,17 @@ def max_duration(predictions):
 
 
 def smooth_duration(predictions):
+	# for icassp predictions
+    # max_length = 0
+    # onset = 0
+    # offset = 0
+    # for p in predictions:
+    #     tmp_dur = p[1] - p[0]
+    #     if tmp_dur > max_length:
+    #         onset = p[0]
+    #         offset = p[1]
+    # return [onset, offset]
+
     max_idx = -1
     max_length = 0
     onset = 0
@@ -65,7 +76,7 @@ def smooth_duration(predictions):
         max_idx = 1
         final_b = onset
         final_r = offset
-
+    
     if max_idx != -1:
         return [final_b, final_r]
     else:

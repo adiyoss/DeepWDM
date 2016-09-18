@@ -25,7 +25,7 @@ end
 noutputs = opt.output_dim
 weights = torch.zeros(opt.output_dim)
 weights[1] = 1
-weights[2] = 5
+weights[2] = 1
 
 ----------------------------------------------------------------------
 print '==> define loss'

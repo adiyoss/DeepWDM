@@ -27,7 +27,7 @@ def extract_single_mfcc(in_path, out_path):
     """
     import platform
     plat = platform.system().lower()
-    if plat is 'darwin':
+    if plat == 'darwin':
         sox_path = 'sbin/osx/sox'
         htk_path = 'sbin/osx'
     elif 'linux' in plat:

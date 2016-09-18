@@ -27,7 +27,8 @@ print '==> define parameters'
 noutputs = opt.output_dim
 
 -- number of hidden units (for MLP only):
-nhiddens_1 = opt.input_dim * 2
+--nhiddens_1 = opt.input_dim * 2
+nhiddens_1 = 100
 nhiddens_2 = opt.input_dim
 
 ----------------------------------------------------------------------
@@ -43,28 +44,33 @@ if opt.model == 'mlp' then
    model:add(nn.Dropout(opt.dropout)) 
    model:add(nn.ReLU())
    model:add(nn.Linear(nhiddens_2, noutputs))
-   
+  
 elseif opt.model == 'convnet' then  
   error('not supported yet')
   
 elseif opt.model == 'birnn' then    
-  -- forward rnn
-  -- build LSTM based rnn
-  fwd = nn.GRU(opt.input_dim, nhiddens_1)
-
-  -- backward rnn (will be applied in reverse order of input sequence)
-  bwd = fwd:clone()
-  bwd:reset() -- reinitializes parameters
-
+  -- forward rnn  
+  fwd_1 = nn.FastLSTM(opt.input_dim, nhiddens_1)
+  bwd_1 = fwd_1:clone()
+  bwd_1:reset() -- reinitializes parameters
   -- merges the output of one time-step of fwd and bwd rnns.
-  -- You could also try nn.AddTable(), nn.Identity(), etc.
-  merge = nn.JoinTable(1, 1)
-  
+  merge_1 = nn.CAddTable()
   -- build the bidirectional lstm
-  brnn = nn.BiSequencer(fwd, bwd, merge)
+  brnn_1 = nn.BiSequencer(fwd_1, bwd_1, merge_1)
 
+  fwd_2 = nn.FastLSTM(nhiddens_1, nhiddens_1)
+  bwd_2 = fwd_2:clone()
+  bwd_2:reset() -- reinitializes parameters
+  -- merges the output of one time-step of fwd and bwd rnns.
+  merge_2 = nn.JoinTable(1, 1)
+  -- build the bidirectional lstm
+  brnn_2 = nn.BiSequencer(fwd_2, bwd_2, merge_2)
+
+  
   model = nn.Sequential()
-     :add(brnn) 
+     :add(brnn_1) 
+     :add(nn.Sequencer(nn.Dropout(opt.dropout)))
+     :add(brnn_2) 
      :add(nn.Sequencer(nn.Dropout(opt.dropout)))
      :add(nn.Sequencer(nn.Linear(2*nhiddens_1, opt.output_dim))) -- times two due to JoinTable
      :add(nn.Sequencer(nn.LogSoftMax()))
