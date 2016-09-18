@@ -4,6 +4,7 @@
 back_end/data/
 back_end/results/old_models/
 back_end/results/rnn_old_version/
+results/icassp_model/
 
 *.net
 front_end/data/files/
