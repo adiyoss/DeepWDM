@@ -21,12 +21,12 @@ cmd:option('-input_dim', 39, 'the input size')
 cmd:option('-output_dim', 2, 'the output size')
 cmd:option('-val_percentage', 0.1, 'the percentage of exampels to be considered as validation set from the training set')
 -- model:
-cmd:option('-model', 'birnn', 'type of model to construct: mlp | birnn | 2birnn | rnn | 2rnn')
+cmd:option('-model', '2birnn', 'type of model to construct: mlp | birnn | 2birnn | rnn | 2rnn')
 cmd:option('-drop_out', 0.5, 'dropout rate')
 -- loss:
 cmd:option('-loss', 'nll', 'type of loss function to minimize: nll')
 -- training:
-cmd:option('-save', 'results/icassp_model/2_layer_all_no_lossweights/', 'subdirectory to save/log experiments in')
+cmd:option('-save', 'results/', 'subdirectory to save/log experiments in')
 cmd:option('-plot', false, 'live plot')
 cmd:option('-optimization', 'ADAGRAD', 'optimization method: SGD | ADAM | ADAGRAD')
 cmd:option('-learningRate', 0.01, 'learning rate at t=0')

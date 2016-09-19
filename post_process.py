@@ -12,7 +12,7 @@ def predict_duration_target(y):
     onset_found = False
     onset = 0
     for i in range(1, len(y)):
-        prev = y[i-1]
+        prev = y[i - 1]
         curr = y[i]
         if prev is 1 and curr is 2:
             onset_found = True
@@ -39,7 +39,7 @@ def max_duration(predictions):
 
 
 def smooth_duration(predictions):
-	# for icassp predictions
+    # for icassp predictions
     # max_length = 0
     # onset = 0
     # offset = 0
@@ -76,7 +76,7 @@ def smooth_duration(predictions):
         max_idx = 1
         final_b = onset
         final_r = offset
-    
+
     if max_idx != -1:
         return [final_b, final_r]
     else:
@@ -105,7 +105,7 @@ def post_process(filename, output_path):
     # prediction = max_duration(predictions)
     prediction = smooth_duration(predictions)
     with open(output_path, 'w') as fid:
-        fid.write(str(prediction[0]) + ' ' + str(prediction[1])+'\n')
+        fid.write(str(prediction[0]) + ' ' + str(prediction[1]) + '\n')
     fid.close()
 
 
