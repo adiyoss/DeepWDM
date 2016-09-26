@@ -42,16 +42,16 @@ First, download the desired model: [RNN](https://drive.google.com/uc?export=down
 
 ## Usage
 For measurement just type: 
-``bash
+```bash
 python predict.py "input wav file" "output text grid file" "model type"
-``
+```
 
 ## Example
 You can try our tool using the example file in the data folder. 
 Type:
-``bash
+```bash
 python predict.py data/test.wav data/test.TextGrid rnn
-``
+```
 
 ## Training Your Own Model
 In order to train DeepWDM model using your own data you need to preform two steps:
@@ -66,9 +66,9 @@ This script get as input three parameter:
 - C. The path where to save the features and labels.
 
 To test the feature extraction procedure, type the following command from the front\_end folder: 
-``bash
+```bash
 python run_front_end.py data/test_file/ --in_path_y data/test_file/ data/test_features/
-``
+```
 This script will generate two files(tmp.features and tmp.label), one for the features and one for the labels. These files will be used to train the model.
 
 ### Train the model
