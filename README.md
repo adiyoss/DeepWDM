@@ -69,15 +69,17 @@ To test the feature extraction procedure, type the following command from the fr
 ```bash
 python run_front_end.py data/test_file/ --in_path_y data/test_file/ data/test_features/
 ```
-This script will generate two files(tmp.features and tmp.label), one for the features and one for the labels. These files will be used to train ht model.
+This script will generate two files(tmp.features and tmp.label), one for the features and one for the labels. These files will be used to train the model.
 
 ### Train the model
 In order to train the model you should run the run.lua script from the back/_end folder with the right path to the labels and features from the previous step.
 The parameter for the new files are: `-folder_path`, `-x_filename` and `-y_filename`.
 
+In order to use the new trained model with the 'predict.py' script, you should rename it as `1_layer_model.net`, place it under the results folder and choose the `rnn` mode.
+
 ### Useful Tricks
 - In order to load the data faster, it is recommended to convert the features and labels files to .t7 format. You can do it by simply using the convert2t7.lua script, it gets as input the path to the features and label files along with the desired output paths, and saves them as .t7 file. 
-- Another option is to run the data.lua script and uncomment lines 38-39 with the torch.save() command.
+- Another option is to run the data.lua script and uncomment lines 41-42 with the torch.save() command.
 - You can try out the impact of the other parameters such as: learning rate, different optimization technique, etc.
 - If your dataset is unbalanced, i.e there are much more silence then activities in the speech signal, you can try to different weights on the loss functions. This can be done by changing the values of the `weights` parameter in loss.lua file.
 
