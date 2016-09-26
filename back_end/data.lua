@@ -58,12 +58,12 @@ local val_size = data_x:size(1)*opt.val_percentage
 val_x = data_x[{{(data_x:size(1)-val_size), data_x:size(1)}, {}}]   -- take the last elements for validation
 val_y = data_y[{{(data_y:size(1)-val_size), data_y:size(1)}}]   -- take the last elements for validation
 
-local max_size = 400000
---train_x = data_x[{{1, (data_x:size(1)-val_size)}, {}}]            -- the rest are for training
---train_y = data_y[{{1, (data_y:size(1)-val_size)}}]            -- the rest are for training
+-- local max_size = 400000
+-- train_x = data_x[{{1, max_size}, {}}]            -- the rest are for training
+-- train_y = data_y[{{1, max_size}}]            -- the rest are for training
 
-train_x = data_x[{{1, max_size}, {}}]            -- the rest are for training
-train_y = data_y[{{1, max_size}}]            -- the rest are for training
+train_x = data_x[{{1, (data_x:size(1)-val_size)}, {}}]            -- the rest are for training
+train_y = data_y[{{1, (data_y:size(1)-val_size)}}]            -- the rest are for training
 
 local p_train = torch.sum(train_y) / train_y:size(1)
 local p_val = torch.sum(val_y) / val_y:size(1)
