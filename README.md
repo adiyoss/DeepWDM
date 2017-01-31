@@ -38,7 +38,7 @@ apt-get install sox
 ```
 
 ### Model Installation
-First, download the desired model: [RNN](https://drive.google.com/uc?export=download&id=0B69m3kcUfbmPRDF0X2tuUHFESFk), [2 Stacked Layers of RNN](https://drive.google.com/uc?export=download&id=0B69m3kcUfbmPUmJIblAxZ0x0eFE), [Bi-Directional RNN](https://drive.google.com/uc?export=download&id=0B69m3kcUfbmPSk9fZUlTT1M1LVE), [2 Stacked Layers of Bi-Directionl RNN](). Than, move the model file to: `back_end/results/` inside the project directory.
+First, download the desired model: [RNN](https://drive.google.com/file/d/0B69m3kcUfbmPRDF0X2tuUHFESFk/view?usp=sharing), [2 RNN Layers](https://drive.google.com/file/d/0B69m3kcUfbmPUmJIblAxZ0x0eFE/view?usp=sharing), [Bi-Directional RNN](https://drive.google.com/file/d/0B69m3kcUfbmPZGR2VjBiSjJuM1E/view?usp=sharing), [2 Layers of Bi-Directionl RNNs](https://drive.google.com/file/d/0B69m3kcUfbmPQ1NtSGtKYlpfNmc/view?usp=sharing). Than, move the model file to: `back_end/results/` inside the project directory.
 
 ## Usage
 For measurement just type: 
