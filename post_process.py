@@ -39,6 +39,23 @@ def max_duration(predictions):
 
 
 def smooth_duration(predictions):
+    new_seq = list()
+    onset = 0
+    offset = 0
+    for i, p in enumerate(predictions):
+        if onset == 0 and offset == 0:
+            onset = p[0]
+            offset = p[1]
+        else:
+            if p[0] - offset < 10:
+                offset = p[1]
+            else:
+                new_seq.append([onset, offset])
+                onset = p[0]
+                offset = p[1]
+    new_seq.append([onset, offset])
+    return max_duration(new_seq)
+    
     # for icassp predictions
     # max_length = 0
     # onset = 0
@@ -50,38 +67,38 @@ def smooth_duration(predictions):
     #         offset = p[1]
     # return [onset, offset]
 
-    max_idx = -1
-    max_length = 0
-    onset = 0
-    offset = 0
-    final_b = 0
-    final_r = 0
-    for i, p in enumerate(predictions):
-        if onset == 0 and offset == 0:
-            onset = p[0]
-            offset = p[1]
-        else:
-            if p[0] - offset < 10:
-                offset = p[1]
-            else:
-                tmp_len = offset - onset
-                if offset - onset > max_length:
-                    max_idx = i
-                    final_b = onset
-                    final_r = offset
-                    max_length = tmp_len
-                onset = 0
-                offset = 0
-    if max_idx == -1 and (offset != 0 or onset != 0):
-        max_idx = 1
-        final_b = onset
-        final_r = offset
+    # max_idx = -1
+    # max_length = 0
+    # onset = 0
+    # offset = 0
+    # final_b = 0
+    # final_r = 0
+    # for i, p in enumerate(predictions):
+    #     if onset == 0 and offset == 0:
+    #         onset = p[0]
+    #         offset = p[1]
+    #     else:
+    #         if p[0] - offset < 10:
+    #             offset = p[1]
+    #         else:
+    #             tmp_len = offset - onset
+    #             if offset - onset > max_length:
+    #                 max_idx = i
+    #                 final_b = onset
+    #                 final_r = offset
+    #                 max_length = tmp_len
+    #             onset = 0
+    #             offset = 0
+    # if max_idx == -1 and (offset != 0 or onset != 0):
+    #     max_idx = 1
+    #     final_b = onset
+    #     final_r = offset
 
-    if max_idx != -1:
-        return [final_b, final_r]
-    else:
-        print('No predictions')
-        return [0, 0]
+    # if max_idx != -1:
+    #     return [final_b, final_r]
+    # else:
+    #     print('No predictions')
+    #     return [0, 0]
 
 
 def post_process(filename, output_path):
